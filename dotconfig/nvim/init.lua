@@ -24,6 +24,8 @@ vim.keymap.set('n', 'k', 'gk')
 
 vim.cmd.colorscheme('kanagawa')
 
+vim.diagnostic.config({ signs = false, severity_sort = true, jump = {float = true} })
+
 require('nvim-autopairs').setup()
 
 local cmp = require('cmp')
