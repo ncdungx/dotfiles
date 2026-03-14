@@ -1,8 +1,9 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
-Plug('rebelot/kanagawa.nvim')
-Plug('windwp/nvim-autopairs')
 Plug('nvim-treesitter/nvim-treesitter')
+Plug('windwp/nvim-autopairs')
+Plug('pysan3/fcitx5.nvim')
+Plug('rebelot/kanagawa.nvim')
 Plug('lervag/vimtex')
 Plug('hrsh7th/nvim-cmp')
 Plug('micangl/cmp-vimtex')
@@ -23,8 +24,6 @@ vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 
 vim.cmd.colorscheme('kanagawa')
-
-vim.diagnostic.config({ signs = false, severity_sort = true, jump = {float = true} })
 
 require('nvim-autopairs').setup()
 
@@ -47,5 +46,12 @@ cmp.setup.filetype('tex', {
 	sources = {
 		{name = 'vimtex'},
 		{name = 'buffer'},
+	},
+})
+
+require('fcitx5').setup({
+	imname = {
+		norm = 'keyboard-us',
+		cmd  = 'keyboard-us',
 	},
 })
