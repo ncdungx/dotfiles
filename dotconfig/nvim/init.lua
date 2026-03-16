@@ -36,7 +36,7 @@ cmp.setup({
 		['<CR>'] = cmp.mapping.confirm({select = true}),
 		['<M-j>'] = cmp.mapping.select_next_item(),
 		['<M-k>'] = cmp.mapping.select_prev_item(),
-		['<M-Space>'] = cmp.mapping.complete()
+		['<M-CR>'] = cmp.mapping.complete()
 	}),
 	sources = ({
 		{name = 'buffer'},
