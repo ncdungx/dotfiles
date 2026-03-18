@@ -16,6 +16,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.linebreak = true
 vim.o.breakindent = true
+vim.o.pumheight = 5
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -40,7 +41,7 @@ cmp.setup({
 		['<M-CR>'] = cmp.mapping.complete()
 	}),
 	sources = ({
-		{name = 'buffer', max_item_count = 3},
+		{name = 'buffer'},
 	}),
 	formatting = {
 		format = function(_, item)
@@ -59,8 +60,8 @@ cmp.setup({
 })
 cmp.setup.filetype('tex', {
 	sources = {
-		{name = 'vimtex', max_item_count = 5},
-		{name = 'buffer', max_item_count = 3},
+		{name = 'vimtex'},
+		{name = 'buffer'},
 	},
 })
 
