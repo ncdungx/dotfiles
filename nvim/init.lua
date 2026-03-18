@@ -25,6 +25,10 @@ vim.g.vimtex_view_method = 'sioyek'
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 
+require('kanagawa').setup({
+	compile = true, -- Cần chạy lệnh KanagawaCompile
+	statementStyle = {bold = false},
+})
 vim.cmd.colorscheme('kanagawa')
 
 require('nvim-autopairs').setup()
@@ -32,27 +36,25 @@ require('nvim-autopairs').setup()
 local cmp = require('cmp')
 cmp.setup({
 	mapping = ({
-		['<M-d>'] = cmp.mapping.scroll_docs(5),
-		['<M-u>'] = cmp.mapping.scroll_docs(-5),
-		['<M-e>']= cmp.mapping.abort(),
-		['<CR>'] = cmp.mapping.confirm({select = true}),
 		['<M-j>'] = cmp.mapping.select_next_item(),
 		['<M-k>'] = cmp.mapping.select_prev_item(),
-		['<M-CR>'] = cmp.mapping.complete()
+		['<CR>'] = cmp.mapping.confirm({select = true}),
+		['<M-CR>'] = cmp.mapping.complete(),
+		['<M-e>']= cmp.mapping.abort(),
+		['<M-d>'] = cmp.mapping.scroll_docs(5),
+		['<M-u>'] = cmp.mapping.scroll_docs(-5),
 	}),
 	sources = ({
 		{name = 'buffer'},
 	}),
 	formatting = {
 		format = function(_, item)
-			local MAX_LABEL_WIDTH = 10
+			local MAX_LABEL_WIDTH = 20
 			local content = item.abbr
 			if #content > MAX_LABEL_WIDTH then
-				item.abbr = vim.fn.strcharpart(content, 0,
-				MAX_LABEL_WIDTH) .. '…'
+				item.abbr = vim.fn.strcharpart(content, 0, MAX_LABEL_WIDTH) .. '…'
 			else
-				item.abbr = content .. (' '):rep(MAX_LABEL_WIDTH
-				- #content)
+				item.abbr = content .. (' '):rep(MAX_LABEL_WIDTH - #content)
 			end
 			return item
 		end
