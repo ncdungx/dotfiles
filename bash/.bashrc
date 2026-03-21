@@ -7,6 +7,10 @@
 
 PS1='\[\033[0;32m\][\u@\h:\W]\$\[\033[0m\] '
 
+if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
+    exec tmux new-session -A -s ${USER} >/dev/null 2>&1
+fi
+
 alias ls='ls --color=auto'
 alias ll='ls -lh'
 alias la='ls -alh'
