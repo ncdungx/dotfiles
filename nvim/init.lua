@@ -1,6 +1,6 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
-Plug('nvim-treesitter/nvim-treesitter')
+Plug('nvim-treesitter/nvim-treesitter', { ['branch'] = 'main', ['do'] = ':TSUpdate' })
 Plug('windwp/nvim-autopairs')
 Plug('pysan3/fcitx5.nvim')
 Plug('rebelot/kanagawa.nvim')
@@ -16,7 +16,6 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.linebreak = true
 vim.o.breakindent = true
-vim.o.pumheight = 5
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -26,7 +25,6 @@ vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 
 require('kanagawa').setup({
-	compile = true, -- Cần chạy lệnh KanagawaCompile
 	statementStyle = {bold = false},
 })
 vim.cmd.colorscheme('kanagawa')
