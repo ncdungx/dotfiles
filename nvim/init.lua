@@ -33,8 +33,10 @@ vim.cmd.colorscheme('kanagawa')
 
 local npairs = require('nvim-autopairs')
 local Rule = require('nvim-autopairs.rule')
+local cond = require('nvim-autopairs.conds')
 npairs.setup()
 npairs.add_rules({
+	Rule('"', '"', 'tex'),
 	Rule('\\(', '\\)', 'tex'),
 	Rule('\\[', '\\]', 'tex'),
 	Rule('$', '$', 'tex')
@@ -42,6 +44,10 @@ npairs.add_rules({
 			return vim.fn['vimtex#syntax#in_mathzone']() == 0
 		end),
 })
+local apostrophe_rules = npairs.get_rules("'")
+for _, rule in pairs(apostrophe_rules) do
+	rule:with_pair(cond.not_filetypes({'tex'}))
+end
 
 local cmp = require('cmp')
 cmp.setup({
