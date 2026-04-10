@@ -21,15 +21,27 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.vimtex_view_method = 'sioyek'
 
-vim.keymap.set('n', 'j', 'gj')
-vim.keymap.set('n', 'k', 'gk')
+vim.cmd('nnoremap j gj')
+vim.cmd('nnoremap k gk')
+vim.cmd('autocmd FileType tex nnoremap <buffer> <leader>e <plug>(vimtex-env-surround-line)')
+vim.cmd('autocmd FileType tex xnoremap <buffer> <leader>e <plug>(vimtex-env-surround-visual)')
 
 require('kanagawa').setup({
 	statementStyle = {bold = false},
 })
 vim.cmd.colorscheme('kanagawa')
 
-require('nvim-autopairs').setup()
+local npairs = require('nvim-autopairs')
+local Rule = require('nvim-autopairs.rule')
+npairs.setup()
+npairs.add_rules({
+	Rule('\\(', '\\)', 'tex'),
+	Rule('\\[', '\\]', 'tex'),
+	Rule('$', '$', 'tex')
+		:with_pair(function()
+			return vim.fn['vimtex#syntax#in_mathzone']() == 0
+		end),
+})
 
 local cmp = require('cmp')
 cmp.setup({
@@ -69,5 +81,6 @@ require('fcitx5').setup({
 	imname = {
 		norm = 'keyboard-us',
 		cmd  = 'keyboard-us',
+		ins = 'unikey',
 	},
 })
