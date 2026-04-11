@@ -11,5 +11,7 @@ alias ls='ls --color=auto'
 alias ll='ls -lh'
 alias la='ls -alh'
 alias grep='grep --color=auto'
-alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
+
 alias ru='paru'
+alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
+alias upgrade-lts='sudo pacman -S linux-lts linux-lts-headers'

@@ -23,8 +23,7 @@ vim.g.vimtex_view_method = 'sioyek'
 
 vim.cmd('nnoremap j gj')
 vim.cmd('nnoremap k gk')
-vim.cmd('autocmd FileType tex nnoremap <buffer> <leader>e <plug>(vimtex-env-surround-line)')
-vim.cmd('autocmd FileType tex xnoremap <buffer> <leader>e <plug>(vimtex-env-surround-visual)')
+vim.cmd('nnoremap <leader>h :nohl<CR>')
 
 require('kanagawa').setup({
 	statementStyle = {bold = false},
@@ -36,7 +35,6 @@ local Rule = require('nvim-autopairs.rule')
 local cond = require('nvim-autopairs.conds')
 npairs.setup()
 npairs.add_rules({
-	Rule('"', '"', 'tex'),
 	Rule('\\(', '\\)', 'tex'),
 	Rule('\\[', '\\]', 'tex'),
 	Rule('$', '$', 'tex')
@@ -55,14 +53,14 @@ cmp.setup({
 		['<M-j>'] = cmp.mapping.select_next_item(),
 		['<M-k>'] = cmp.mapping.select_prev_item(),
 		['<CR>'] = cmp.mapping.confirm({select = true}),
-		['<M-CR>'] = cmp.mapping.complete(),
-		['<M-e>']= cmp.mapping.abort(),
+		--['<M-CR>'] = cmp.mapping.complete(),
+		['<Tab>']= cmp.mapping.abort(),
 		['<M-d>'] = cmp.mapping.scroll_docs(5),
 		['<M-u>'] = cmp.mapping.scroll_docs(-5),
 	}),
-	sources = ({
-		{name = 'buffer'},
-	}),
+	--sources = ({
+	--	{name = 'buffer'},
+	--}),
 	formatting = {
 		format = function(_, item)
 			local MAX_LABEL_WIDTH = 20
@@ -79,7 +77,7 @@ cmp.setup({
 cmp.setup.filetype('tex', {
 	sources = {
 		{name = 'vimtex'},
-		{name = 'buffer'},
+		--{name = 'buffer'},
 	},
 })
 
@@ -87,6 +85,5 @@ require('fcitx5').setup({
 	imname = {
 		norm = 'keyboard-us',
 		cmd  = 'keyboard-us',
-		ins = 'unikey',
 	},
 })
