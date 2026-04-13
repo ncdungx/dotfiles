@@ -2,12 +2,13 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 Plug('nvim-treesitter/nvim-treesitter', { ['branch'] = 'main', ['do'] = ':TSUpdate' })
 Plug('windwp/nvim-autopairs')
-Plug('pysan3/fcitx5.nvim')
+Plug('keaising/im-select.nvim')
 Plug('rebelot/kanagawa.nvim')
 Plug('lervag/vimtex')
 Plug('hrsh7th/nvim-cmp')
 Plug('micangl/cmp-vimtex')
 Plug('hrsh7th/cmp-buffer')
+Plug('nvim-lualine/lualine.nvim')
 vim.call('plug#end')
 
 vim.o.rnu = true
@@ -17,17 +18,17 @@ vim.o.smartcase = true
 vim.o.linebreak = true
 vim.o.breakindent = true
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.cmd('set keymap=vietnamese-telex_utf-8')
+vim.cmd('autocmd InsertLeave * set keymap=vietnamese-telex_utf-8')
+vim.cmd('autocmd InsertEnter * set keymap=')
+require('im_select').setup()
+
 vim.g.vimtex_view_method = 'sioyek'
 
 vim.cmd('nnoremap j gj')
 vim.cmd('nnoremap k gk')
 vim.cmd('nnoremap <leader>h :nohl<CR>')
 
-require('kanagawa').setup({
-	statementStyle = {bold = false},
-})
 vim.cmd.colorscheme('kanagawa')
 
 local npairs = require('nvim-autopairs')
@@ -58,9 +59,9 @@ cmp.setup({
 		['<M-d>'] = cmp.mapping.scroll_docs(5),
 		['<M-u>'] = cmp.mapping.scroll_docs(-5),
 	}),
-	--sources = ({
-	--	{name = 'buffer'},
-	--}),
+	sources = ({
+		{name = 'buffer'},
+	}),
 	formatting = {
 		format = function(_, item)
 			local MAX_LABEL_WIDTH = 20
@@ -77,13 +78,19 @@ cmp.setup({
 cmp.setup.filetype('tex', {
 	sources = {
 		{name = 'vimtex'},
-		--{name = 'buffer'},
+		{name = 'buffer'},
 	},
 })
 
-require('fcitx5').setup({
-	imname = {
-		norm = 'keyboard-us',
-		cmd  = 'keyboard-us',
+require('lualine').setup({
+	options = {
+		icons_enabled = false,
+		component_separators = {left = '', right = ''},
+		section_separators = {left = '', right = ''},
 	},
+	sections = {
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = {'location', 'progress'},
+	}
 })
